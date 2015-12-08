@@ -1,3 +1,4 @@
+var path = require('path');
 var async = require('async');
 var data = require('./data');
 var utils = require('./utils');
@@ -72,8 +73,8 @@ function generate_image(url, width, quality, cb){
     var h = (width/3)*2;
     var name = utils.filename_from_url(url);
     var writeStream = rs.upload({
-        container: '22squaredCDN',
-        remote: '/util/screenshots/'+name
+        container: config.CONTAINER,
+        remote: path.join(config.PATH, name)
     }).on('error', function(err) {
         cb(err, null);
     }).on('success', function(file) {
