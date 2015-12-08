@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    
+    section.screenshot
+        h3 Input Urls 
+        pre
+            -for url in data.urls
+                span=  url
+                br
+    
+        h3 Screenshot Urls 
+        pre
+            -for image in data.images
+                span=  image
+                br
+        
+        h3 Images
+        -for image, index in data.images
+            p
+                a(href= data.urls[index])= data.urls[index]
+                br
+                a(href= image, target="blank")
+                    img(src= image)

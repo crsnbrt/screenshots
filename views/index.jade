@@ -1,0 +1,54 @@
+extends layout
+
+block content
+
+    section.loading.hidden
+        h4 Processing ... <span class="status">unknown of unknown</span> 
+        p This page will redirect when all screenshots have been completed.
+
+    section.screenshots.row
+        .col-sm-6
+            p Enter one url per line to generate screenshots. Keep the quality low to reduce the processing time or increse to reduce image artifacts.
+            
+            .alert.alert-danger
+                p <strong>Note: </strong>these screenshots do not always match the url exactly, for example any content loaded via javascript will not be rendered.
+            
+            
+            form.row
+                .col-sm-3
+                    .radio
+                        label
+                            input(type="radio", name="view", id="desktop", value="1280", checked) 
+                            | Desktop
+                    .radio
+                        label
+                            input(type="radio", name="view", id="mobile", value="400") 
+                            | Mobile
+                .col-sm-9
+                    .form-group.row.control-quality
+                        .col-sm-5
+                            label.control-label(for="quality") Jpeg Quality (10-100)
+                        .col-sm-7
+                            input(name="quality", id="quality", type="range" min="10", max="100", step="10", value="10")
+                        
+                .col-sm-12
+                    .form-group
+                        textarea.form-control(name="urls", id="urls", rows="20")
+            button.btn.btn-success.btn-capture() Submit
+    
+    -if(recent)
+        hr
+        section.recent
+            h3 Recent
+            .col-sm-6
+                ol
+                    -each val in recent
+                        li
+                            a(href="/screenshot/" + val.id)
+                                | Set of 
+                                span= val.urls.length 
+                                |  urls starting with: 
+                                span= val.urls[0]
+                            
+            
+        
